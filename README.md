@@ -15,8 +15,8 @@ Our method `MultiAugs` contains two vital components: **① new advanced collabo
     <th>Illustration of new advanced $T_{JCCM}$</th>
   </tr>
   <tr>
-    <td><img src="images/newaugJOCOs.png" width=100%></td>
-    <td><img src="images/newaugJCCMs.png" width=100%></td> 
+    <td><img src="./images/newaugJOCOs.png" width=100%></td>
+    <td><img src="./images/newaugJCCMs.png" width=100%></td> 
   </tr>
 </table>
 
@@ -28,8 +28,8 @@ Our method `MultiAugs` contains two vital components: **① new advanced collabo
     <th>Illustration of multi-heatmaps Case 2</th>
   </tr>
   <tr>
-    <td><img src="images/MultiHeatsCase1.png" width=100%></td>
-    <td><img src="images/MultiHeatsCase2.png" width=100%></td> 
+    <td><img src="./images/MultiHeatsCase1.png" width=100%></td>
+    <td><img src="./images/MultiHeatsCase2.png" width=100%></td> 
   </tr>
 </table>
 
