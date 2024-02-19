@@ -14,12 +14,19 @@ Code for my paper ***Boosting Semi-Supervised 2D Human Pose Estimation by Revisi
 
 <table>
   <tr>
-    <th>Results of COCOtrain-1K/5K/10K on COCO val-set</th>
-    <th>Results of COCOtrain+COCOwild on COCO val-set</th>
-    <th>Results of COCOtrain+COCOwild on COCO test-set</th>
+    <th>Results of COCO-train-1K/5K/10K on COCO val-set</th>
+    <th>Results of MPII-train + AIC-all on MPII test-set</th>
   </tr>
   <tr>
     <td><img src="./images/cocotrain_1k_5k_10k_val_set.png" width=100%></td>
+    <td><img src="./images/mpiitrain_aicall_test_set.png" width=100%></td>
+  </tr>
+
+  <tr>
+    <th>Results of COCO-train + COCO-wild on COCO val-set</th>
+    <th>Results of COCO-train + COCO-wild on COCO test-set</th>
+  </tr>
+  <tr>
     <td><img src="./images/cocotrain_cocowild_val_set.png" width=100%></td>
     <td><img src="./images/cocotrain_cocowild_test_set.png" width=100%></td> 
   </tr>
