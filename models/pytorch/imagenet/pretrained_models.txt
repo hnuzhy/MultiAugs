@@ -1,0 +1,33 @@
+
+${REPO_ROOT}
+  -- models
+      -- pytorch
+         |-- imagenet
+         |   |-- hrnet_w32-36af842e.pth
+         |   |-- hrnet_w48-8ef0771d.pth
+         |   |-- resnet18_5c_f3_posedual.pth
+         |   |-- resnet18-5c106cde.pth
+         |   |-- resnet50-19c8e357.pth
+         |   |-- resnet101-5d3b4d8f.pth
+         |   |-- resnet152-b121ed2d.pth
+
+********************************************************************
+You can download these pretrained models from Semi_Human_Pose
+********************************************************************
+https://github.com/xierc/Semi_Human_Pose
+https://drive.google.com/drive/folders/1VxaLZK5D6mlgrq3Z_MZweITBHKrqaVGe
+
+********************************************************************
+You can also download pretrained models from the repo of HRNet
+********************************************************************
+https://github.com/leoxiaobin/deep-high-resolution-net.pytorch
+https://drive.google.com/drive/folders/1E6j6W7RqGhW1o7UHgiQ9X4g8fVJRU9TX
+
+********************************************************************
+You can also download pretrained models from pytorch model zoo
+********************************************************************
+https://pytorch.org/docs/stable/model_zoo.html#module-torch.utils.model_zoo
+https://s3.amazonaws.com/pytorch/models/resnet18-5c106cde.pth
+https://s3.amazonaws.com/pytorch/models/resnet50-19c8e357.pth
+https://s3.amazonaws.com/pytorch/models/resnet101-5d3b4d8f.pth
+https://s3.amazonaws.com/pytorch/models/resnet152-b121ed2d.pth

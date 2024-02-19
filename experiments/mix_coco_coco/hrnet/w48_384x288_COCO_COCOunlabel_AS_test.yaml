@@ -1,0 +1,152 @@
+GPUS: '0'
+DATA_DIR: ''
+OUTPUT_DIR: 'output'
+LOG_DIR: 'log'
+
+UNSUP_TRANSFORM: True
+
+CONS_RAND_AUG: False
+RAND_MAGNITUDE: 20
+
+USE_JointCutout_AUG: False
+MASK_JOINT_NUM: 5
+
+USE_JointCutMix_AUG: False
+KP_CutMix_JOINT_NUM: 2
+# KP_CutMix_JOINT_NUM: 5
+
+USE_Cutout_AUG: False
+MASK_HOLES_NUM_CO: 5
+
+USE_CutMix_AUG: False
+MASK_HOLES_NUM_CM: 2
+# MASK_HOLES_NUM_CM: 5
+
+USE_MixUp_AUG: False
+
+USE_RandAug_AUG: False
+
+
+WORKERS: 8            
+PRINT_FREQ: 100
+CUDNN:
+  BENCHMARK: True
+  DETERMINISTIC: False
+  ENABLED: True
+DATASET:
+  TRAIN_DATASET: mix_coco_coco
+  TEST_DATASET: coco
+  ROOT: 'data/'
+  TRAIN_SET: train
+  TEST_SET: test-dev2017
+  TRAIN_UNSUP_SET: unlabeled2017
+  FLIP: true
+  ROT_FACTOR: 30
+  SCALE_FACTOR: 0.25
+  # DATA_FORMAT: zip
+MODEL:
+  NAME: pose_dual
+  BACKBONE: hrnet
+  NUM_JOINTS: 24
+  PRETRAINED: 'models/pytorch/imagenet/hrnet_w48-8ef0771d.pth'
+  IMAGE_SIZE:
+  - 288
+  - 384
+
+  EXTRA:
+    TARGET_TYPE: gaussian
+    HEATMAP_SIZE:
+    - 72
+    - 96
+    SIGMA: 3
+    PRETRAINED_LAYERS:
+    - 'conv1'
+    - 'bn1'
+    - 'conv2'
+    - 'bn2'
+    - 'layer1'
+    - 'transition1'
+    - 'stage2'
+    - 'transition2'
+    - 'stage3'
+    - 'transition3'
+    - 'stage4'
+    FINAL_CONV_KERNEL: 1
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      - 192
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 48
+      - 96
+      - 192
+      - 384
+      FUSE_METHOD: SUM
+LOSS:
+  USE_TARGET_WEIGHT: true
+TRAIN:
+  BATCH_SIZE: 8
+  SHUFFLE: true
+  BEGIN_EPOCH: 0
+  END_EPOCH: 300
+  RESUME: true
+  OPTIMIZER: adam
+  LR: 0.001
+  LR_FACTOR: 0.1
+  LR_STEP:
+  - 220
+  - 260
+  WD: 0.0001
+  GAMMA1: 0.99
+  GAMMA2: 0.0
+  MOMENTUM: 0.9
+  NESTEROV: false
+TEST:
+  MODEL_FILE: 'models/pytorch/pose_dual/COCO_COCOwild/HRNetw48_384x288_COCO_PoseDual_JointCut.pth.tar'
+  BATCH_SIZE: 32
+  # COCO_BBOX_FILE: 'data/coco/person_detection_results/COCO_unlabeled2017_detections_person_faster_rcnn.json'
+  COCO_BBOX_FILE: 'data/coco/person_detection_results/COCO_test-dev2017_detections_AP_H_609_person.json'
+  BBOX_THRE: 1.0
+  # FLIP_TEST: false
+  FLIP_TEST: true
+  IMAGE_THRE: 0.0
+  IN_VIS_THRE: 0.2
+  NMS_THRE: 1.0
+  OKS_THRE: 0.9
+  # USE_GT_BBOX: true
+  USE_GT_BBOX: false
+DEBUG:
+  DEBUG: false
+  SAVE_BATCH_IMAGES_GT: true
+  SAVE_BATCH_IMAGES_PRED: true
+  SAVE_HEATMAPS_GT: true
+  SAVE_HEATMAPS_PRED: true
