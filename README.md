@@ -1,7 +1,9 @@
 # MultiAugs
-Code for my paper ***Boosting Semi-Supervised 2D Human Pose Estimation by Revisiting Data Augmentation and Consistency Training***
+Code for my paper ***Boosting Semi-Supervised 2D Human Pose Estimation by Revisiting Data Augmentation and Consistency Training*** [arxiv 2024.02]
 
-![example1](./images/overall_framework.png)
+ [Arxiv Link](https://arxiv.org/abs/2024.07814) | [Released Models](https://huggingface.co/HoyerChou/MultiAugs)
+
+<img src="images/overall_framework.png" width=90% />   
 
 ***
 
