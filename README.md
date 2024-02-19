@@ -28,8 +28,8 @@ Our method `MultiAugs` contains two vital components: **new advanced collaborati
     <th>Illustration of multi-heatmaps Case 2</th>
   </tr>
   <tr>
-    <td><img src="./images/MultiHeatsCase1.png" width=45%></td>
-    <td><img src="./images/MultiHeatsCase2.png" width=45%></td> 
+    <td><img src="./images/MultiHeatsCase1.png" width=95%></td>
+    <td><img src="./images/MultiHeatsCase2.png" width=95%></td> 
   </tr>
 </table>
 
