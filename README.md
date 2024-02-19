@@ -52,7 +52,7 @@ Among them, you can download `pretrained models` as what are written in [pretrai
 
 ## ● Training
 
-### 1. Training Single / Dual Network(s) (PoseCons / PoseDual) on COCO 1K labels with Distributed Data Parallel (e.g., 4 RTX-3090 GPUs)
+#### 1. Training Single / Dual Network(s) (PoseCons / PoseDual) on COCO 1K labels with Distributed Data Parallel (e.g., 4 RTX-3090 GPUs)
 ```bash
 # pose_cons single network, epochs=30, using --multi_augs, 4 augs: --joco_aug --jccm_aug --jc_aug --jo_aug
 $ python -m torch.distributed.launch --master_port 11111 --nproc_per_node=4 pose_estimation/train.py \
@@ -93,7 +93,7 @@ $ python -m torch.distributed.launch --master_port 11113 --nproc_per_node=4 pose
 #     showing the effectiveness of using different multi-path augmentations
 ```
 
-### 2. Training Single / Dual Network(s) (PoseCons / PoseDual) with ResNet50 on COCO TRAIN + WILD
+#### 2. Training Single / Dual Network(s) (PoseCons / PoseDual) with ResNet50 on COCO TRAIN + WILD
 ```bash
 # pose_cons single network, epochs=400, using --multi_augs, 2 augs: --joco_aug --jccm_aug
 $ python -m torch.distributed.launch --master_port 22221 --nproc_per_node=4 pose_estimation/train.py \
@@ -108,7 +108,7 @@ $ python -m torch.distributed.launch --master_port 22222 --nproc_per_node=4 pose
     --multi_augs --joco_aug --jccm_aug --exp_subname MA_b32_joco_jccm_e400 
 ```
 
-### 3. Training Dual Network (PoseDual) with HRNet-w32 on MPII-train + AIC-all
+#### 3. Training Dual Network (PoseDual) with HRNet-w32 on MPII-train + AIC-all
 ```bash
 # pose_dual dual networks, epochs=300, using --multi_augs, 2 augs: --joco_aug --jccm_aug
 $ python -m torch.distributed.launch --master_port 33331 --nproc_per_node=4 pose_estimation/train.py \
@@ -120,7 +120,7 @@ $ python -m torch.distributed.launch --master_port 33331 --nproc_per_node=4 pose
 
 ## ● Testing
 
-### 1. Testing Single / Dual Network(s) (PoseCons / PoseDual + COCO1K) on COCO VAL
+#### 1. Testing Single / Dual Network(s) (PoseCons / PoseDual + COCO1K) on COCO VAL
 ```bash
 # single network
 $ python pose_estimation/valid.py --gpus 0 --exp_subname baseline1_COCO1K_e30 \
@@ -144,7 +144,7 @@ Net 1:  | 0.4968 | 0.8102 | 0.5286 | 0.4779 | 0.5294 | 0.5377 | 0.8300 | 0.5754 
 Net 2:  | 0.4977 | 0.8090 | 0.5288 | 0.4780 | 0.5284 | 0.5369 | 0.8213 | 0.5756 | 0.5061 | 0.5814 |
 ```
 
-### 2. Testing Single / Dual Network(s) (PoseCons / PoseDual + COCOall_COCOunlabel) with ResNet50 on COCO VAL
+#### 2. Testing Single / Dual Network(s) (PoseCons / PoseDual + COCOall_COCOunlabel) with ResNet50 on COCO VAL
 ```bash
 # single network
 $ python pose_estimation/valid.py --gpus 0 --exp_subname baseline7_e400_b128 \
@@ -166,7 +166,7 @@ Net 2:  | 0.7440 | 0.9353 | 0.8254 | 0.7179 | 0.7885 | 0.7740 | 0.9405 | 0.8440 
 Ensemble| 0.7558 | 0.9356 | 0.8357 | 0.7242 | 0.7994 | 0.7826 | 0.9413 | 0.8504 | 0.7474 | 0.8357 |
 ```
 
-### 3. Testing Dual Networks (PoseDual + COCOall_COCOunlabel) with HRNet-w48 on COCO TEST
+#### 3. Testing Dual Networks (PoseDual + COCOall_COCOunlabel) with HRNet-w48 on COCO TEST
 ```bash
 $ python pose_estimation/valid.py --gpus 0 --exp_subname baseline9_e300_b10 \
     --cfg experiments/mix_coco_coco/hrnet/w48_384x288_COCO_COCOunlabel_AS_test.yaml \
@@ -177,7 +177,7 @@ Ensemble| 0.773 | 0.925 | 0.849 | 0.744 | 0.829 | 0.823 | 0.960 | 0.890 | 0.785 
 ```
 (*Note: This result can be rechecked as `Rank-3` named `HuayiZhou` in [COCO Keypoint Challenge : test-dev2017 (keypoints)](https://codalab.lisn.upsaclay.fr/competitions/7403#results)*)
 
-### 4. Testing Dual Networks (PoseDual + MPII_AIC) with HRNet-w32 on MPII VAL
+#### 4. Testing Dual Networks (PoseDual + MPII_AIC) with HRNet-w32 on MPII VAL
 ```bash
 $ python pose_estimation/valid.py --gpus 0 --exp_subname baseline10_e300_b24 \
     --cfg experiments/mix_mpii_ai/hrnet/w32_256x256_PoseDual_AS.yaml \
