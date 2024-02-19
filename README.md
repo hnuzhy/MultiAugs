@@ -15,8 +15,8 @@ Our method `MultiAugs` contains two vital components: **new advanced collaborati
     <th>Illustration of new advanced $T_{JCCM}$</th>
   </tr>
   <tr>
-    <td><img src="./images/newaugJOCOs.png" height="240"></td>
-    <td><img src="./images/newaugJCCMs.png" height="240"></td> 
+    <td><img src="./images/newaugJOCOs.png" width=95%></td>
+    <td><img src="./images/newaugJCCMs.png" width=95%></td> 
   </tr>
 </table>
 
