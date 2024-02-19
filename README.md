@@ -178,17 +178,6 @@ Ensemble| 0.773 | 0.925 | 0.849 | 0.744 | 0.829 | 0.823 | 0.960 | 0.890 | 0.785 
 ```
 (*Note: This result can be rechecked as `Rank-3` named `HuayiZhou` in [COCO Keypoint Challenge : test-dev2017 (keypoints)](https://codalab.lisn.upsaclay.fr/competitions/7403#results)*)
 
-#### 4. Testing Dual Networks (PoseDual + MPII_AIC) with HRNet-w32 on MPII VAL
-```bash
-$ python pose_estimation/valid.py --gpus 0 --exp_subname baseline10_e300_b24 \
-    --cfg experiments/mix_mpii_ai/hrnet/w32_256x256_PoseDual_AS.yaml \
-    --model-file output/mix_mpii_ai/pose_dual_32/w32_256x256_PoseDual_AS_baseline10_e300_b24/model_best.pth.tar
-[results]   Head    | Shoulder  | Elbow     | Wrist     | Hip       | Knee      | Ankle     | Mean
-Net Pred 1: 97.1010 | 96.7391   | 91.6994   | 87.4760   | 90.5314   | 88.8772   | 84.7663   | 91.4390
-Net Pred 2: 97.4079 | 96.8071   | 91.7161   | 87.5450   | 90.0986   | 88.3733   | 84.3406   | 91.3167
-Avg of two: 97.2545 | 96.7731   | 91.7078   | 87.5105   | 90.3150   | 88.6253   | 84.5535   | 91.3779  <<---- 
-Ensemble  : 97.2715 | 96.7731   | 91.8866   | 88.1445   | 90.5660   | 89.1592   | 85.0023   | 91.6654
-```
 
 ***
 
