@@ -66,9 +66,8 @@ $ python -m torch.distributed.launch --master_port 11112 --nproc_per_node=4 pose
     --train_len 1000 --gpus 0,1,2,3 --batch_size 32 --epochs 30 --lr_steps 20 25 --workers 12 \
     --multi_augs --joco_aug --jccm_aug --jc_aug --jo_aug --exp_subname MA_b32_joco_jccm_jc_jo
 ```
+below are for the usage of running ablation studies:
 ```bash
-# below are for the usage of running ablation studies:
-
 # pose_cons single network, epochs=30, sequentially using --jo_aug --co_aug (not using --multi_augs)
 $ python -m torch.distributed.launch --master_port 11114 --nproc_per_node=4 pose_estimation/train.py \
     --distributed --cfg experiments/mix_coco_coco/res18/256x192_COCO1K_PoseCons_AS.yaml \
