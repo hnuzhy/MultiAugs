@@ -3,7 +3,7 @@ Code for my paper ***Boosting Semi-Supervised 2D Human Pose Estimation by Revisi
 
 [[Arxiv Link](https://arxiv.org/abs/2024.07814)] | [[Released Models](https://huggingface.co/HoyerChou/MultiAugs)]
 
-<p style="text-align:center;"><img src="images/overall_framework.png" width=90% ></p>
+<p align="center"><img src="images/overall_framework.png" width=90% ></p>
 
 ***
 
