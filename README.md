@@ -218,6 +218,6 @@ If you use our code or models in your research, please cite with:
 ## Acknowledgement
 The code is mainly based on [Semi_Human_Pose](https://github.com/xierc/Semi_Human_Pose), which is also based on other closely related works [DarkPose](https://github.com/ilovepose/DarkPose), [HRNet](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch) and [Simple Baseline](https://github.com/microsoft/human-pose-estimation.pytorch). Thanks for their awesome works.
 
-The basic augmentations (including `MixUp (MU)`, `CutOut (CO)`,`CutMix (CM)`, `Joint CutOut (JC)` and `Joint Cut-Occlusion (JO)`) comes from [MixUp (MU)](https://github.com/facebookresearch/mixup-cifar10), [CutOut (CO)](https://github.com/uoguelph-mlrg/Cutout), [CutMix (CM)](https://github.com/clovaai/CutMix-PyTorch), [Joint CutOut (JC)](https://github.com/xierc/Semi_Human_Pose) and [Joint Cut-Occlusion (JO)](https://github.com/hlz0606/SSPCM). 
+The basic augmentations (including `MixUp (MU)`, `CutOut (CO)`,`CutMix (CM)`, `Joint CutOut (JC)` and `Joint Cut-Occlusion (JO)`) come from [MixUp (MU)](https://github.com/facebookresearch/mixup-cifar10), [CutOut (CO)](https://github.com/uoguelph-mlrg/Cutout), [CutMix (CM)](https://github.com/clovaai/CutMix-PyTorch), [Joint CutOut (JC)](https://github.com/xierc/Semi_Human_Pose) and [Joint Cut-Occlusion (JO)](https://github.com/hlz0606/SSPCM), respectively. 
 
 
