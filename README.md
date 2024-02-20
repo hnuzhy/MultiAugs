@@ -1,7 +1,7 @@
 # MultiAugs
 Code for my paper ***Boosting Semi-Supervised 2D Human Pose Estimation by Revisiting Data Augmentation and Consistency Training*** [arxiv 2024.02]
 
-[[Arxiv Link](https://arxiv.org/abs/2402.07814)] | [[Released Models](https://huggingface.co/HoyerChou/MultiAugs)]
+[[Arxiv Link](https://arxiv.org/abs/2402.11566)] | [[Released Models](https://huggingface.co/HoyerChou/MultiAugs)]
 
 <p align="center"><img src="images/overall_framework.png" width=90% ></p>
 
@@ -210,7 +210,7 @@ If you use our code or models in your research, please cite with:
 @article{zhou2024boosting,
   title={Boosting Semi-Supervised 2D Human Pose Estimation by Revisiting Data Augmentation and Consistency Training},
   author={Zhou, Huayi and Luo, Mukun and Jiang, Fei and Ding, Yue and Lu, Hongtao},
-  journal={arXiv preprint arXiv:2402.07814},
+  journal={arXiv preprint arXiv:2402.11566},
   year={2024}
 }
 ```
