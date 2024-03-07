@@ -106,6 +106,11 @@ def parse_args():
     parser.add_argument('--lr', type=float, default=0.001, help='learning rate')
     
 
+    parser.add_argument('--yocora_aug', action='store_true', help='whether using YOCO (ICML2022) + RandAugment')
+    parser.add_argument('--yocota_aug', action='store_true', help='whether using YOCO (ICML2022) + TrivialAugment')
+    parser.add_argument('--ta_aug', action='store_true', help='whether using TrivialAugment (ICCV2021 oral)')
+
+
     parser.add_argument('--ra_aug', action='store_true', help='whether using random augment (RA)')
     parser.add_argument('--jc_aug', action='store_true', help='whether using Joint Cutout (JC)')
     parser.add_argument('--jo_aug', action='store_true', help='whether using Joint CutMix (Cut-Occlude, JO)')
@@ -170,6 +175,11 @@ def reset_config(config, args):
         config.TRAIN.LR = args.lr
         
     
+    config.USE_YOCORA_AUG = args.yocora_aug  # using YOCO (ICML2022) based on RandAugment 
+    config.USE_YOCOTA_AUG = args.yocota_aug  # using YOCO (ICML2022) based on TrivialAugment 
+    config.USE_TrivialAug_AUG = args.ta_aug  # using TrivialAugment (ICCV2021 oral)
+   
+    
     # config.CONS_RAND_AUG = args.ra_aug  # used in mix_coco_coco.py file 
     config.USE_RandAug_AUG = args.ra_aug  # used in pose_cons.py and pose_dual.py files 
     config.USE_JointCutout_AUG = args.jc_aug
@@ -177,7 +187,7 @@ def reset_config(config, args):
     config.USE_Cutout_AUG = args.co_aug
     config.USE_CutMix_AUG = args.cm_aug
     config.USE_MixUp_AUG = args.mu_aug
-   
+    
     config.USE_JointCutMix_CutOut_AUG = args.joco_aug  # used when args.multi_augs is True
     config.USE_JointCutout_CutMix_AUG = args.jccm_aug  # used when args.multi_augs is True
     
