@@ -12,6 +12,24 @@ import numpy as np
 
 import torchvision.transforms as transforms
 
+
+########################################################################
+
+# YOCO(ICML2022) You Only Cut Once: Boosting Data Augmentation with a Single Cut
+# https://github.com/JunlinHan/YOCO
+def random_YOCO(images, images_aux):  # images or images_aux is processed by RandAug
+    N,_,w,h = images.shape
+    
+    for i in range(N):
+        if torch.rand(1) > 0.5:
+            # images[i, :, 0:int(w/2), :] = images_aux[i, :, 0:int(w/2), :]  # also right
+            images[i, :, int(w/2):w, :] = images_aux[i, :, int(w/2):w, :]
+        else:
+            # images[i, :, :, 0:int(h/2)] = images_aux[i, :, :, 0:int(h/2)]  # also right
+            images[i, :, :, int(h/2):h] = images_aux[i, :, :, int(h/2):h]
+    return images
+
+########################################################################
     
 # arxiv2017.08 (Cutout) Improved Regularization of Convolutional Neural Networks with Cutout
 # https://github.com/uoguelph-mlrg/Cutout
