@@ -197,7 +197,8 @@ def augment_list():  # 16 oeprations and their ranges
         (Contrast, 0, 0.9),
         (Brightness, 0, 0.9),
         (Sharpness, 0, 0.9),
-        # (CutoutAbs, 0, 80),  # remove this part in MultiAugs
+        # (CutoutAbs, 0, 80),  # remove this part in MultiAugs (for CVPR2024 rebuttal)
+        (CutoutAbs, 0, 80),  # reuse this part to reproduce RandAugment (for ECCV2024)
     ]
 
     return l
