@@ -36,6 +36,15 @@ config.MASK_HOLES_NUM_CO = 5
 config.MASK_HOLES_NUM_CM = 2
 # config.MASK_HOLES_NUM_CM = 5
 
+## YOCO(ICML2022) You Only Cut Once: Boosting Data Augmentation with a Single Cut
+## https://github.com/JunlinHan/YOCO
+config.USE_YOCORA_AUG = False  # based on RandAugment
+config.USE_YOCOTA_AUG = False  # based on TrivialAugment
+
+## TrivialAugment(ICCV2021 oral) TrivialAugment: Tuning-Free Yet State-of-the-Art Data Augmentation
+## https://github.com/automl/trivialaugment
+config.USE_TrivialAug_AUG = False
+
 # various augmentations
 config.USE_Cutout_AUG = False
 config.USE_MixUp_AUG = False
