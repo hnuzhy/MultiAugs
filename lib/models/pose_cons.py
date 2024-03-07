@@ -27,6 +27,8 @@ from utils.augments import random_cutmix
 from utils.augments import mask_joint
 from utils.augments import keypoint_cutmix_perception
 
+from utils.augments import random_YOCO
+
 BN_MOMENTUM = 0.1
 logger = logging.getLogger(__name__)
 
@@ -359,8 +361,10 @@ class PoseCons(nn.Module):
         
         # RandAug
         # if self.cfg.CONS_RAND_AUG:
-        if self.cfg.USE_RandAug_AUG:  # can only do for PIL images (not tensors)
+        if self.cfg.USE_RandAug_AUG or self.cfg.USE_TrivialAug_AUG:  # can only do for PIL images (not tensors)
             sup_x, unsup_x, aug_unsup_x = x
+        elif self.cfg.USE_YOCORA_AUG or self.cfg.USE_YOCOTA_AUG: # YOCO needs two RandAugs or TrivialAugs
+            sup_x, unsup_x, aug1_unsup_x, aug2_unsup_x = x
         else:
             sup_x, unsup_x = x
         cons_x = unsup_x.clone()
@@ -393,9 +397,11 @@ class PoseCons(nn.Module):
                 unsup_aug = random_mixup(unsup_x)
             elif teacher_aug == "CM":
                 unsup_aug = random_cutmix(unsup_x, self.cfg.MASK_HOLES_NUM_CM)
-            elif teacher_aug == "RA":
+            elif teacher_aug == "RA" or teacher_aug == "TA":
                 unsup_aug = aug_unsup_x.clone()
-
+            elif teacher_aug == "YOCORA" or teacher_aug == "YOCOTA":
+                unsup_aug = random_YOCO(aug1_unsup_x, aug2_unsup_x)
+                
             _, unsup_ht = self.resnet(unsup_aug)
             
         
@@ -407,7 +413,13 @@ class PoseCons(nn.Module):
                 if not self.cfg.REPEAT_AUG:
                     if "RA" in student_aug or self.cfg.USE_RandAug_AUG:
                         cons_x = aug_unsup_x.clone()
-                
+                    
+                    if "TA" in student_aug or self.cfg.USE_TrivialAug_AUG:
+                        cons_x = aug_unsup_x.clone()
+
+                    if "YOCO" in student_aug or self.cfg.USE_YOCORA_AUG or self.cfg.USE_YOCOTA_AUG:
+                        cons_x = random_YOCO(aug1_unsup_x, aug2_unsup_x)
+                        
                     # Strong Augmentation #1, Joints Cutout 
                     if "JC" in student_aug or self.cfg.USE_JointCutout_AUG:
                         cons_x = mask_joint(cons_x, preds*4, self.cfg.MASK_JOINT_NUM)
@@ -474,9 +486,11 @@ class PoseCons(nn.Module):
                     cons_x_copy = cons_x.clone()
                     cons_x_list.append(random_cutmix(cons_x_copy, self.cfg.MASK_HOLES_NUM_CM))
 
-                if self.cfg.USE_RandAug_AUG:  # RA
+                if self.cfg.USE_RandAug_AUG or self.cfg.USE_TrivialAug_AUG:  # RA or TA
                     cons_x_list.append(aug_unsup_x.clone())
-
+                if self.cfg.USE_YOCORA_AUG or self.cfg.USE_YOCOTA_AUG:  # YOCO+RA or YOCO+TA
+                    cons_x_list.append(random_YOCO(aug1_unsup_x, aug2_unsup_x))
+                    
                 if self.cfg.USE_JointCutMix_CutOut_AUG:  # JO+CO
                     cons_x_copy = cons_x.clone()
                     cons_x_copy = keypoint_cutmix_perception(cons_x_copy, preds*4, self.cfg.KP_CutMix_JOINT_NUM)
