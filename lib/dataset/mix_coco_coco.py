@@ -13,8 +13,10 @@ from core.config import config
 from dataset.JointsDataset import JointsDataset
 from dataset.coco import COCODataset
 from utils.rand_augment import RandAugment
+from utils.aug_lib import TrivialAugment
 import logging
 logger = logging.getLogger(__name__)
+
 
 class Mixed_COCO_COCO_Dataset(JointsDataset):
 
@@ -48,10 +50,40 @@ class Mixed_COCO_COCO_Dataset(JointsDataset):
         if cfg.USE_RandAug_AUG:
             N, M = 2, cfg.RAND_MAGNITUDE
             transform_aug = copy.deepcopy(transform)
-            if  transform.transforms[0].__class__.__name__ != 'RandAugment':
+            if transform.transforms[0].__class__.__name__ != 'RandAugment':
                 transform_aug.transforms.insert(0, RandAugment(N, M))
             self.aug_ai = COCODataset(cfg, root, image_set, is_train, transform_aug)
             self.sets.append(self.aug_ai)
+
+        if cfg.USE_TrivialAug_AUG:  # (ICCV2021 oral) TrivialAugment: Tuning-Free Yet State-of-the-Art Data Augmentation
+            transform_aug = copy.deepcopy(transform)
+            transform_aug.transforms.insert(0, TrivialAugment())
+            self.aug_ai = COCODataset(cfg, root, image_set, is_train, transform_aug)
+            self.sets.append(self.aug_ai)
+
+        if cfg.USE_YOCORA_AUG:  # YOCO is based on RandAugment, and need two RandAugments
+            N, M = 2, cfg.RAND_MAGNITUDE
+            transform_aug1 = copy.deepcopy(transform)
+            if transform.transforms[0].__class__.__name__ != 'RandAugment':
+                transform_aug1.transforms.insert(0, RandAugment(N, M))
+            self.aug_ai1 = COCODataset(cfg, root, image_set, is_train, transform_aug1)
+            self.sets.append(self.aug_ai1)
+            transform_aug2 = copy.deepcopy(transform)
+            if transform.transforms[0].__class__.__name__ != 'RandAugment':
+                transform_aug2.transforms.insert(0, RandAugment(N, M))
+            self.aug_ai2 = COCODataset(cfg, root, image_set, is_train, transform_aug2)
+            self.sets.append(self.aug_ai2)
+
+        if cfg.USE_YOCOTA_AUG:  # YOCO is based on TrivialAugment, and need two TrivialAugments
+            transform_aug1 = copy.deepcopy(transform)
+            transform_aug1.transforms.insert(0, TrivialAugment())
+            self.aug_ai1 = COCODataset(cfg, root, image_set, is_train, transform_aug1)
+            self.sets.append(self.aug_ai1)
+            transform_aug2 = copy.deepcopy(transform)
+            transform_aug2.transforms.insert(0, TrivialAugment())
+            self.aug_ai2 = COCODataset(cfg, root, image_set, is_train, transform_aug2)
+            self.sets.append(self.aug_ai2)
+
 
         logger.info('=> Total load {} unlabeled samples'.format(len(self.ai.db)))
 
