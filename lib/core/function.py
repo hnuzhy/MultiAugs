@@ -13,6 +13,7 @@ import logging
 import time
 import copy
 import os
+import json
 import math
 import numpy as np
 import torch
@@ -146,7 +147,20 @@ def validate(config, val_loader, val_dataset, model, criterion, output_dir,
     batch_time = AverageMeter()
     losses = AverageMeter()
     acc = AverageMeter()
-
+    
+    
+    debug_save_feat_vec = False  # True or False. for the SVD analysis
+    if debug_save_feat_vec:  # backbone ResNet-18
+        ''' hook function https://www.cnblogs.com/Fish0403/p/17141048.html '''
+        fmap_block = dict()  # load feature maps
+        def forward_hook(module, input, output):
+            fmap_block['output'] = output
+        for (name, module) in model.named_modules():
+            if name == 'module.resnet.layer4.1.bn2':  # (bs, 512, 8, 6)
+            # if name == 'module.resnet.deconv_layers.8':  # (bs, 256, 64, 48)
+                module.register_forward_hook(hook=forward_hook)
+        sample_feat_list = []
+        
 
     criterion = JointsMSELoss(config.LOSS.USE_TARGET_WEIGHT,config)
 
@@ -176,6 +190,14 @@ def validate(config, val_loader, val_dataset, model, criterion, output_dir,
                 output_2 = output_list[1]
             else:
                 output = model(input)
+
+
+            if debug_save_feat_vec:  # for the SVD analysis
+                feat_arr = fmap_block['output'].detach().cpu().numpy()  # (bs, 512, 8, 6)
+                # feat_arr_reduced = feat_arr.mean(axis=(2, 3))  # (bs, 512, 8, 6) --> (bs, 512) avg pooling
+                feat_arr_reduced = feat_arr.max(axis=(2, 3))  # (bs, 512, 8, 6) --> (bs, 512) max pooling
+                sample_feat_list += feat_arr_reduced.tolist()  # for JSON serializable
+
 
             if config.TEST.FLIP_TEST:
                 # this part is ugly, because pytorch has not supported negative index
@@ -352,6 +374,13 @@ def validate(config, val_loader, val_dataset, model, criterion, output_dir,
             _print_name_value(name_values_3, full_arch_name)
             
             perf_indicator = (perf_indicator + perf_indicator_2) * 0.5  # newly added in 2023-07-18
+
+
+    if debug_save_feat_vec:  # for the SVD analysis
+        json_file_name = "./sample_feat_list_%s.json"%(config.EXP_SUB_NAME)
+        with open(json_file_name, "w") as json_file:
+            json.dump(sample_feat_list, json_file)
+
 
     return perf_indicator
 
